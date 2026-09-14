@@ -15,7 +15,6 @@
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -29,7 +28,6 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
         }
         h1 {
             color: #e63946;
@@ -73,20 +71,11 @@
             color: #c9184a;
             font-weight: 500;
         }
-
-        .spotify-container {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <!-- Local photo uploaded to repository -->
         <img src="us.jpg" alt="Photo of us" class="photo-frame">
         
         <h1>Hi Chiquii! ❤️</h1>
@@ -99,19 +88,8 @@
         </div>
     </div>
 
-    <div class="spotify-container">
-        <!-- Spotify Player for Ben&Ben - Leaves (Reimagined) -->
-        <iframe id="spotify-player"
-                style="border-radius:12px" 
-                src="https://open.spotify.com/embed/track/4WgfuNwzjQPRmvqz7GGAmf?utm_source=generator" 
-                width="100%" 
-                height="152" 
-                frameBorder="0" 
-                allowfullscreen="" 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy">
-        </iframe>
-    </div>
+    <!-- Hidden audio element for background song -->
+    <audio id="bgSong" src="leaves.mp3" loop></audio>
 
     <script>
         function revealSurprise() {
@@ -119,9 +97,9 @@
             const msg = document.getElementById('secret-message');
             msg.style.display = (msg.style.display === 'block') ? 'none' : 'block';
 
-            // Trigger Spotify Autoplay
-            const player = document.getElementById('spotify-player');
-            player.src = "https://open.spotify.com/embed/track/4WgfuNwzjQPRmvqz7GGAmf?utm_source=generator&autoplay=1";
+            // Play background music
+            const song = document.getElementById('bgSong');
+            song.play();
         }
     </script>
 </body>
