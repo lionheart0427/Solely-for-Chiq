@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* --- Page 1 Card --- */
+        /* --- Page Layouts --- */
         #page1 {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
@@ -34,7 +34,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             position: relative;
             z-index: 10;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.5s ease;
         }
         h1 {
             color: #e63946;
@@ -70,18 +70,18 @@
             transform: scale(1.05);
         }
 
-        /* --- Page 2 (Birthday Message Page) --- */
-        #page2 {
+        #page2, #page3 {
             display: none;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 40px;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             position: relative;
             z-index: 10;
-            animation: fadeIn 0.8s ease forwards;
+            text-align: center;
+            transition: opacity 0.5s ease;
         }
         .letter-header {
             text-align: center;
@@ -93,19 +93,95 @@
             font-size: 1.1rem;
             line-height: 1.8;
             color: #444;
-            white-space: pre-line; /* Preserves your exact line breaks */
+            white-space: pre-line;
+            text-align: left;
             margin-bottom: 30px;
+        }
+        .action-tile {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ffb3c1;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- Camera Film Strip Effect --- */
+        .film-container {
+            width: 100%;
+            overflow: hidden;
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 18px 0;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            border-top: 8px dashed #fff;
+            border-bottom: 8px dashed #fff;
+        }
+
+        .film-track {
+            display: flex;
+            gap: 15px;
+            width: max-content;
+            animation: scrollFilm 50s linear infinite;
+        }
+
+        .film-track:hover {
+            animation-play-state: paused;
+        }
+
+        .film-frame {
+            width: 150px;
+            height: 190px;
+            background: #2b2b2b;
+            padding: 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .film-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* --- Special Highlighted Photo 30 --- */
+        .special-photo-card {
+            margin-top: 30px;
+            background: #fff0f3;
+            border: 2px solid #ffb3c1;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.15);
+        }
+
+        .special-photo-card h3 {
+            color: #c9184a;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .special-frame {
+            width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        @keyframes scrollFilm {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- Floating Emoji Animation --- */
@@ -120,14 +196,8 @@
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(0.8);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-110vh) rotate(360deg) scale(1.4);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg) scale(1.4); opacity: 0; }
         }
     </style>
 </head>
@@ -136,39 +206,85 @@
     <!-- PAGE 1: Welcome Screen -->
     <div id="page1">
         <img src="us.jpg" alt="Photo of us" class="photo-frame">
-        
         <h1>Hi Chiquii! ❤️</h1>
         <p>I built this little corner of the internet just for you. Thank you for being so amazing every single day.</p>
-        
-        <button class="btn" onclick="goToMessagePage()">Click for a surprise!</button>
+        <button class="btn" onclick="goToPage2()">Click for a surprise!</button>
     </div>
 
     <!-- PAGE 2: Birthday Message Letter -->
     <div id="page2">
         <h2 class="letter-header">Happiest Birthday, Chiq! 🎂💖</h2>
-        
         <div class="letter-content">I have been thinking pano kita babatiin at 12am kase nasa work ako now so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami na nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
 
-Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, healing and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are &lt;3
+Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are &lt;3
 
 Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
+
+        <div class="action-tile">
+            <button class="btn" onclick="goToPage3()">One more thing... ✨</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3: Camera Film Reel & Special Highlight -->
+    <div id="page3">
+        <h2 class="letter-header">Our Moments in Reel 🎞️❤️</h2>
+        
+        <p style="text-align:center; font-size: 0.95rem; color:#777;">(Hover or tap the film strip to pause)</p>
+
+        <!-- Infinite Scrolling Film Strip -->
+        <div class="film-container">
+            <div class="film-track" id="filmTrack"></div>
+        </div>
+
+        <!-- Highlight Card for Film 30 -->
+        <div class="special-photo-card">
+            <h3>My Favorite Picture of All ✨❤️</h3>
+            <img src="film30.jpg" alt="Our Special Photo" class="special-frame">
+            <p style="margin-top: 15px; color: #555; font-weight: 500;">
+                Here's to capturing a million more memories together! 📸✨
+            </p>
+        </div>
     </div>
 
     <!-- Background Audio -->
     <audio id="bgSong" src="Leaves.mp3" loop preload="auto"></audio>
 
     <script>
-        function goToMessagePage() {
-            // 1. Play background song
+        // Dynamically build the film reel list (us.jpg + film1 through film29, including .heif overrides)
+        const filmTrack = document.getElementById('filmTrack');
+        const photoList = ['us.jpg'];
+
+        for (let i = 1; i <= 29; i++) {
+            if (i === 11 || i === 13) {
+                photoList.push(`film${i}.heif`);
+            } else {
+                photoList.push(`film${i}.jpg`);
+            }
+        }
+
+        // Render photos twice for an infinite scrolling loop
+        function renderFilmTrack() {
+            const fullList = [...photoList, ...photoList];
+            fullList.forEach(src => {
+                const frame = document.createElement('div');
+                frame.classList.add('film-frame');
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Memory';
+                frame.appendChild(img);
+                filmTrack.appendChild(frame);
+            });
+        }
+        renderFilmTrack();
+
+        function goToPage2() {
             const song = document.getElementById('bgSong');
             song.play().catch(function(error) {
                 console.log("Audio play error:", error);
             });
 
-            // 2. Trigger Floating Emoji Celebration
-            createEmojiBurst();
+            startContinuousEmojis();
 
-            // 3. Smoothly transition to Page 2
             const page1 = document.getElementById('page1');
             const page2 = document.getElementById('page2');
 
@@ -176,34 +292,48 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
             setTimeout(() => {
                 page1.style.display = 'none';
                 page2.style.display = 'block';
+                page2.style.animation = 'fadeIn 0.8s ease forwards';
             }, 500);
         }
 
-        function createEmojiBurst() {
+        function goToPage3() {
+            const page2 = document.getElementById('page2');
+            const page3 = document.getElementById('page3');
+
+            page2.style.opacity = '0';
+            setTimeout(() => {
+                page2.style.display = 'none';
+                page3.style.display = 'block';
+                page3.style.animation = 'fadeIn 0.8s ease forwards';
+            }, 500);
+        }
+
+        function spawnSingleEmoji() {
             const emojis = ['💖', '❤️', '💕', '🥰', '😘', '✨', '🎉', '🌹', '💌', '🎂'];
-            const totalEmojis = 40;
+            const emojiElement = document.createElement('div');
+            emojiElement.classList.add('floating-emoji');
+            
+            emojiElement.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            emojiElement.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 2 + 3;
+            const size = Math.random() * 1.5 + 1.5;
+            
+            emojiElement.style.animationDuration = duration + 's';
+            emojiElement.style.fontSize = size + 'rem';
 
-            for (let i = 0; i < totalEmojis; i++) {
-                setTimeout(() => {
-                    const emojiElement = document.createElement('div');
-                    emojiElement.classList.add('floating-emoji');
-                    emojiElement.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                    emojiElement.style.left = Math.random() * 100 + 'vw';
-                    
-                    const duration = Math.random() * 2 + 3;
-                    const size = Math.random() * 1.5 + 1.5;
-                    
-                    emojiElement.style.animationDuration = duration + 's';
-                    emojiElement.style.fontSize = size + 'rem';
+            document.body.appendChild(emojiElement);
 
-                    document.body.appendChild(emojiElement);
+            setTimeout(() => {
+                emojiElement.remove();
+            }, duration * 1000);
+        }
 
-                    setTimeout(() => {
-                        emojiElement.remove();
-                    }, duration * 1000);
-
-                }, i * 100);
+        function startContinuousEmojis() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(spawnSingleEmoji, i * 150);
             }
+            setInterval(spawnSingleEmoji, 300);
         }
     </script>
 </body>
