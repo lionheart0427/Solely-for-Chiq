@@ -309,7 +309,7 @@
     <div id="page1">
         <img src="us.jpg" alt="Photo of us" class="photo-frame" onerror="this.style.display='none'">
         <h1>Hi Chiquii! ❤️</h1>
-        <p>I built this little corner of the internet just to greet you for your birthday</p>
+        <p>I built this little corner of the internet just for your birthday</p>
         <button class="btn" onclick="goToPage2()">Click for a surprise!</button>
     </div>
 
@@ -387,9 +387,9 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
     <script>
         const bgSong = document.getElementById('bgSong');
         
-        // Loop back to 2:39 when song finishes
+        // Loop back to the start when song finishes
         bgSong.addEventListener('ended', function() {
-            this.currentTime = 159; // 2 minutes and 39 seconds
+            this.currentTime = 0;
             this.play();
         }, false);
 
@@ -454,7 +454,6 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
 
         function ensureMusicPlaying() {
             if (bgSong.paused) {
-                bgSong.currentTime = 159; // Start at 2:39
                 bgSong.play().catch(err => console.log("Music play retry:", err));
             }
         }
@@ -484,7 +483,7 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         }
 
         function goToPage2() {
-            bgSong.currentTime = 159; // Start at 2:39 mark
+            bgSong.currentTime = 0; // Play from start
             bgSong.play().catch(function(error) {
                 console.log("Audio play error:", error);
             });
@@ -542,7 +541,6 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
 
         function startContinuousEmojis() {
             if (emojiTimer) return;
-            // Reduced initial burst and slowed down interval to prevent lag
             for (let i = 0; i < 5; i++) {
                 setTimeout(spawnSingleEmoji, i * 300);
             }
