@@ -23,6 +23,40 @@
             position: relative;
         }
 
+        /* --- Crawling Turtles (Top & Left Borders) --- */
+        .crawling-turtle {
+            position: fixed;
+            font-size: 2.2rem;
+            z-index: 1000;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Top Turtle crawling horizontally */
+        .turtle-top {
+            top: 10px;
+            left: -60px;
+            animation: crawlTop 22s linear infinite;
+        }
+
+        /* Left Turtle crawling vertically */
+        .turtle-left {
+            left: 10px;
+            top: -60px;
+            transform: rotate(90deg);
+            animation: crawlLeft 18s linear infinite;
+        }
+
+        @keyframes crawlTop {
+            0% { left: -60px; }
+            100% { left: 105vw; }
+        }
+
+        @keyframes crawlLeft {
+            0% { top: -60px; }
+            100% { top: 105vh; }
+        }
+
         /* --- Page Layouts --- */
         #page1 {
             background: rgba(255, 255, 255, 0.9);
@@ -90,20 +124,13 @@
             font-size: 2rem;
             margin-bottom: 20px;
         }
-        .cute-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .cat-gif, .cute-pic {
-            width: 130px;
-            height: 130px;
+        .cat-gif {
+            width: 160px;
+            height: auto;
             border-radius: 15px;
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 0 auto 20px auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .letter-content {
             font-size: 1.1rem;
@@ -245,22 +272,6 @@
             font-weight: 500;
         }
 
-        .pet-gallery {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 15px;
-            gap: 10px;
-        }
-
-        .pet-gallery img {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 3px solid #ffb3c1;
-            object-fit: cover;
-        }
-
         @keyframes scrollFilm {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -290,6 +301,11 @@
 </head>
 <body>
 
+    <!-- Moving Turtle Animations along Top & Left Edge -->
+    <div class="crawling-turtle turtle-top">🐢</div>
+    <div class="crawling-turtle turtle-left">🐢</div>
+
+    <!-- PAGE 1: Welcome Screen -->
     <div id="page1">
         <img src="us.jpg" alt="Photo of us" class="photo-frame" onerror="this.style.display='none'">
         <h1>Hi Chiquii! ❤️</h1>
@@ -297,14 +313,12 @@
         <button class="btn" onclick="goToPage2()">Click for a surprise!</button>
     </div>
 
+    <!-- PAGE 2: Birthday Message Letter -->
     <div id="page2">
-        <h2 class="letter-header">Happiest Birthday, Chiq!</h2>
+        <h2 class="letter-header">Happiest Birthday, Chiq! 🐢✨</h2>
         
-        <div class="cute-row">
-            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&auto=format&fit=crop&q=60" alt="Cute Cat Drawing/Photo" class="cute-pic">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM28zaXp2dXNhazRkdnY1aWFtbGRwbnVpdmtldXV4bGNicTh6c3NldyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CjmvTCZf2U3p09Cn0h/giphy.gif" alt="Sweet Cat GIF" class="cat-gif">
-            <img src="https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=400&auto=format&fit=crop&q=60" alt="Cute Turtle Photo" class="cute-pic">
-        </div>
+        <!-- Wholesome Cute Cat GIF -->
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3dldmQxaTY3cnRjYmRkMjJidTgwZDJrcnh1OHR5eXBmMnE2cjhhcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CjmvTCZf2U3p09Cn0h/giphy.gif" alt="Sweet Cat GIF" class="cat-gif">
 
         <div class="letter-content">I have been thinking pano kita babatiin at 12am bukas (STARTED CODING AT SEPT 16, 11 PM) kase nasa work ako non so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami dami nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
 
@@ -317,15 +331,18 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         </div>
     </div>
 
+    <!-- PAGE 3: Camera Film Reel & Special Highlight -->
     <div id="page3">
         <h2 class="letter-header">Our Moments in Reel 🎞️</h2>
 
         <p style="text-align:center; font-size: 0.9rem; color:#777; margin-bottom: 10px;">(Tap/click the film strip anytime to pause or play)</p>
 
+        <!-- Infinite Scrolling Film Strip -->
         <div class="film-container" id="filmContainer">
             <div class="film-track" id="filmTrack"></div>
         </div>
 
+        <!-- Highlight Card for Film 30 -->
         <div class="cat-card-style special-photo-card">
             <h3>My Favorite Picture of All 🐾❤️</h3>
             <img src="film30.jpg" alt="Our Special Photo" class="special-frame" onerror="this.style.display='none'">
@@ -334,25 +351,19 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
             </p>
         </div>
 
+        <!-- Audio Greeting Tile from Daughter -->
         <div class="cat-card-style interactive-tile" onclick="playDaughterVoice()">
             <h3>🐱 Listen to a Special Message! 💖</h3>
             <p>(Tap as many times as you want!)</p>
         </div>
 
+        <!-- Interactive Birthday Wish Generator Tile -->
         <div class="cat-card-style interactive-tile" onclick="showRandomWish()">
             <h3>🐾 Tap for a Birthday Wish ✨</h3>
             <p id="wishText">Click here to reveal a wish!</p>
         </div>
 
-        <div class="cat-card-style">
-            <h3 style="color: #c9184a;">Cute Cats & Turtles Corner 🐢🐱</h3>
-            <div class="pet-gallery">
-                <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=200&auto=format&fit=crop&q=60" alt="Fluffy Cat Art">
-                <img src="https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?w=200&auto=format&fit=crop&q=60" alt="Cute Kitten">
-                <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?w=200&auto=format&fit=crop&q=60" alt="Baby Sea Turtle">
-            </div>
-        </div>
-
+        <!-- Navigation Tile to Go Back -->
         <div class="cat-card-style" style="margin-top: 35px; background: #fff;">
             <h3 style="color: #e63946; font-size: 1.1rem; margin-bottom: 15px;">Want to revisit previous messages? ❤️</h3>
             <button class="btn" onclick="goToPage(1)">Back to Start</button>
@@ -360,6 +371,7 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         </div>
     </div>
 
+    <!-- Background Audio & Daughter Voice Audio -->
     <audio id="bgSong" src="Leaves.mp3" loop preload="auto"></audio>
     <audio id="daughterAudio" src="daughter_voice.mp3" preload="auto"></audio>
 
@@ -494,7 +506,7 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         }
 
         function spawnSingleEmoji() {
-            const emojis = ['💖', '❤️', '💕', '🥰', '✨', '🎂', '🐾', '🐢', '🐱'];
+            const emojis = ['💖', '❤️', '💕', '🥰', '✨', '🎂', '🐾', '🐢', '🐢', '🐱'];
             const emojiElement = document.createElement('div');
             emojiElement.classList.add('floating-emoji');
             
