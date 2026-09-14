@@ -89,6 +89,13 @@
             font-size: 2rem;
             margin-bottom: 20px;
         }
+        .cat-gif {
+            width: 150px;
+            height: auto;
+            border-radius: 12px;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
         .letter-content {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -178,6 +185,45 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
+        /* --- Daughter's Audio Tile --- */
+        .audio-tile {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #ffccd5 0%, #ffb3c1 100%);
+            border: 2px solid #ff758f;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 6px 18px rgba(230, 57, 70, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            user-select: none;
+        }
+
+        .audio-tile:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 22px rgba(230, 57, 70, 0.3);
+        }
+
+        .audio-tile:active {
+            transform: scale(0.98);
+        }
+
+        .audio-tile h3 {
+            color: #800f2f;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-tile p {
+            color: #590d22;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
         @keyframes scrollFilm {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -209,7 +255,7 @@
 
     <!-- PAGE 1: Welcome Screen -->
     <div id="page1">
-        <img src="us.jpg" alt="Photo of us" class="photo-frame">
+        <img src="us.jpg" alt="Photo of us" class="photo-frame" onerror="this.style.display='none'">
         <h1>Hi Chiquii! ❤️</h1>
         <p>I built this little corner of the internet just for your birthday</p>
         <button class="btn" onclick="goToPage2()">Click for a surprise!</button>
@@ -218,9 +264,13 @@
     <!-- PAGE 2: Birthday Message Letter -->
     <div id="page2">
         <h2 class="letter-header">Happiest Birthday, Chiq! 🎂💖</h2>
-        <div class="letter-content">I have been thinking pano kita babatiin at 12am kase nasa work ako now so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami na nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
+        
+        <!-- Cat GIF -->
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZydHZpdXFvMWg1Mm1tbW5yYnh0dmpvaHM1MnVhdDJsOHJ3OGd4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CjmvTCZf2U3p09Cn0h/giphy.gif" alt="Cute Cat GIF" class="cat-gif">
 
-Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are &lt;3
+        <div class="letter-content">I have been thinking pano kita babatiin at 12am bukas (STARTED CODING AT SEPT 16, 11 PM) kase nasa work ako non so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami dami nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
+
+Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, healing, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are ❤️
 
 Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
 
@@ -243,15 +293,22 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
         <!-- Highlight Card for Film 30 -->
         <div class="special-photo-card">
             <h3>My Favorite Picture of All ✨❤️</h3>
-            <img src="film30.jpg" alt="Our Special Photo" class="special-frame">
+            <img src="film30.jpg" alt="Our Special Photo" class="special-frame" onerror="this.style.display='none'">
             <p style="margin-top: 15px; color: #555; font-weight: 500;">
                 Here's to capturing a million more memories together! 📸✨
             </p>
         </div>
+
+        <!-- Audio Greeting Tile from Daughter -->
+        <div class="audio-tile" onclick="playDaughterVoice()">
+            <h3>🔊 Listen to a Special Message! 💕</h3>
+            <p>(Tap as many times as you want!)</p>
+        </div>
     </div>
 
-    <!-- Background Audio -->
+    <!-- Background Audio & Daughter Voice Audio -->
     <audio id="bgSong" src="Leaves.mp3" loop preload="auto"></audio>
+    <audio id="daughterAudio" src="daughter_voice.mp3" preload="auto"></audio>
 
     <script>
         // Build film reel array (us.jpg + film1 to film29, omitting 11 and 13)
@@ -273,6 +330,13 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = 'Memory';
+
+                // Automatically hide broken or corrupted image frames
+                img.onerror = function() {
+                    console.warn("Failed to load image:", src);
+                    frame.style.display = 'none';
+                };
+
                 frame.appendChild(img);
                 filmTrack.appendChild(frame);
             });
@@ -283,6 +347,12 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
         filmContainer.addEventListener('click', () => {
             filmTrack.classList.toggle('paused');
         });
+
+        function playDaughterVoice() {
+            const voice = document.getElementById('daughterAudio');
+            voice.currentTime = 0; // Restart from beginning on every tap
+            voice.play().catch(err => console.log("Audio play error:", err));
+        }
 
         function goToPage2() {
             const song = document.getElementById('bgSong');
@@ -300,6 +370,7 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
                 page1.style.display = 'none';
                 page2.style.display = 'block';
                 page2.style.animation = 'fadeIn 0.8s ease forwards';
+                window.scrollTo(0, 0);
             }, 500);
         }
 
@@ -312,6 +383,7 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
                 page2.style.display = 'none';
                 page3.style.display = 'block';
                 page3.style.animation = 'fadeIn 0.8s ease forwards';
+                window.scrollTo(0, 0);
             }, 500);
         }
 
