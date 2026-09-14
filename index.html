@@ -267,6 +267,7 @@
 </head>
 <body>
 
+    <!-- PAGE 1: Welcome Screen -->
     <div id="page1">
         <img src="us.jpg" alt="Photo of us" class="photo-frame" onerror="this.style.display='none'">
         <h1>Hi Chiquii! ❤️</h1>
@@ -274,9 +275,11 @@
         <button class="btn" onclick="goToPage2()">Click for a surprise!</button>
     </div>
 
+    <!-- PAGE 2: Birthday Message Letter -->
     <div id="page2">
         <h2 class="letter-header">Happiest Birthday, Chiq!</h2>
         
+        <!-- In-Love Cat GIF -->
         <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3dldmQxaTY3cnRjYmRkMjJidTgwZDJrcnh1OHR5eXBmMnE2cjhhcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lq0h93752f6J9tijrh/giphy.gif" alt="In Love Cat GIF" class="cat-gif">
 
         <div class="letter-content">I have been thinking pano kita babatiin at 12am bukas (STARTED CODING AT SEPT 16, 11 PM) kase nasa work ako non so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami dami nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
@@ -290,44 +293,59 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         </div>
     </div>
 
+    <!-- PAGE 3: Camera Film Reel & Special Highlight -->
     <div id="page3">
         <h2 class="letter-header">Our Moments in Reel 🎞️</h2>
 
         <p style="text-align:center; font-size: 0.9rem; color:#777; margin-bottom: 10px;">(Tap/click the film strip anytime to pause or play)</p>
 
+        <!-- Infinite Scrolling Film Strip -->
         <div class="film-container" id="filmContainer">
             <div class="film-track" id="filmTrack"></div>
         </div>
 
+        <!-- Highlight Card for Film 30 -->
         <div class="cat-card-style special-photo-card">
             <h3>My Favorite Picture of All 🐾❤️</h3>
             <img src="film30.jpg" alt="Our Special Photo" class="special-frame" onerror="this.style.display='none'">
-            <p style="margin-top: 15px; color: #555; font-weight: 500;">
-                Here's to capturing a million more memories together!
+            <p style="margin-top: 15px; color: #555; font-weight: 500; line-height: 1.6;">
+                This photo is the best photo I choose for your birthday kase this smile is so pure, I really miss this smile. Wala pa gaanong hardship, wala pa masyadong pressure, pure love and happiness pa lang ang meron sa puso mo
             </p>
         </div>
 
+        <!-- Audio Greeting Tile from Daughter -->
         <div class="cat-card-style interactive-tile" onclick="playDaughterVoice()">
             <h3>🐱 Listen to a Special Message! 💖</h3>
             <p>(Tap as many times as you want!)</p>
         </div>
 
+        <!-- Interactive Birthday Wish Generator Tile -->
         <div class="cat-card-style interactive-tile" onclick="showRandomWish()">
             <h3>🐾 Tap for a Birthday Wish ✨</h3>
-            <p id="wishText">Click here to reveal a sweet message!</p>
+            <p id="wishText">Click here to reveal a wish!</p>
         </div>
 
+        <!-- Navigation Tile to Go Back (No Page Numbers) -->
         <div class="cat-card-style" style="margin-top: 35px; background: #fff;">
-            <h3 style="color: #e63946; font-size: 1.1rem; margin-bottom: 15px;">Want to revisit previous pages? ❤️</h3>
-            <button class="btn" onclick="goToPage(1)">Back to Start (Page 1)</button>
-            <button class="btn" onclick="goToPage(2)">Read Letter Again (Page 2)</button>
+            <h3 style="color: #e63946; font-size: 1.1rem; margin-bottom: 15px;">Want to revisit previous messages? ❤️</h3>
+            <button class="btn" onclick="goToPage(1)">Back to Start</button>
+            <button class="btn" onclick="goToPage(2)">Read Letter Again</button>
         </div>
     </div>
 
+    <!-- Background Audio & Daughter Voice Audio -->
     <audio id="bgSong" src="Leaves.mp3" loop preload="auto"></audio>
     <audio id="daughterAudio" src="daughter_voice.mp3" preload="auto"></audio>
 
     <script>
+        const bgSong = document.getElementById('bgSong');
+        
+        // Ensure seamless looping and prevent unexpected pauses
+        bgSong.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
         // Build film reel array (us.jpg + film1 to film29, omitting 11 and 13)
         const filmTrack = document.getElementById('filmTrack');
         const filmContainer = document.getElementById('filmContainer');
@@ -372,11 +390,12 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         }
 
         const wishes = [
-            "You deserve all the peaceful and happy moments in the world! 🌸",
-            "May your year be filled with beautiful photos and great music! 🎧",
-            "Thank you for being such a bright ray of sunshine! ☀️",
-            "Always remember how loved and appreciated you truly are! 💕",
-            "Hope your day brings as much comfort as you give to others! 🐾"
+            "I hope you heal from all the traumas na binigay ko sayo.",
+            "Sana mahanap mo ulit yung kasiyahang matagal na nawala sayo, mahal ko.",
+            "Sana ma-achieve mo na yung katawang gusto mo this year.",
+            "Sana matupad lahat ng hiling mo ngayong araw.",
+            "Sana mabawasan na yung lungkot at galit na nararamdaman mo, mahal ko.",
+            "Magiging okay din ang lahat ❤️"
         ];
 
         function showRandomWish() {
@@ -389,7 +408,14 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
             }, 150);
         }
 
+        function ensureMusicPlaying() {
+            if (bgSong.paused) {
+                bgSong.play().catch(err => console.log("Music play retry:", err));
+            }
+        }
+
         function goToPage(pageNumber) {
+            ensureMusicPlaying();
             const p1 = document.getElementById('page1');
             const p2 = document.getElementById('page2');
             const p3 = document.getElementById('page3');
@@ -413,8 +439,7 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         }
 
         function goToPage2() {
-            const song = document.getElementById('bgSong');
-            song.play().catch(function(error) {
+            bgSong.play().catch(function(error) {
                 console.log("Audio play error:", error);
             });
 
@@ -433,6 +458,7 @@ Enjoy your day, and know that I’m still here silently loving you.</div>
         }
 
         function goToPage3() {
+            ensureMusicPlaying();
             const page2 = document.getElementById('page2');
             const page3 = document.getElementById('page3');
 
