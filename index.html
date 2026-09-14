@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Favorite Person</title>
+    <title>For Chiquii ❤️</title>
     <style>
         * {
             box-sizing: border-box;
@@ -44,7 +44,7 @@
         }
         .photo-frame {
             width: 100%;
-            max-height: 300px;
+            max-height: 380px;
             border-radius: 15px;
             object-fit: cover;
             margin-bottom: 20px;
@@ -74,7 +74,6 @@
             font-weight: 500;
         }
 
-        /* Spotify Player Styling */
         .spotify-container {
             width: 100%;
             max-width: 500px;
@@ -87,21 +86,23 @@
 <body>
 
     <div class="card">
-        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80" alt="Cute romantic photo" class="photo-frame">
+        <!-- Local photo uploaded to repository -->
+        <img src="us.jpg" alt="Photo of us" class="photo-frame">
         
-        <h1>Hi [Her Name]! ❤️</h1>
+        <h1>Hi Chiquii! ❤️</h1>
         <p>I built this little corner of the internet just for you. Thank you for being so amazing every single day.</p>
         
-        <button class="btn" onclick="showMessage()">Click for a surprise!</button>
+        <button class="btn" onclick="revealSurprise()">Click for a surprise!</button>
         
         <div id="secret-message">
-            💖 I love you more every day! 💖
+            💖 I love you more every day, Chiquii! 💖
         </div>
     </div>
 
-    <!-- Spotify Player for Ben&Ben - Leaves (Reimagined) -->
     <div class="spotify-container">
-        <iframe style="border-radius:12px" 
+        <!-- Spotify Player for Ben&Ben - Leaves (Reimagined) -->
+        <iframe id="spotify-player"
+                style="border-radius:12px" 
                 src="https://open.spotify.com/embed/track/4WgfuNwzjQPRmvqz7GGAmf?utm_source=generator" 
                 width="100%" 
                 height="152" 
@@ -113,9 +114,14 @@
     </div>
 
     <script>
-        function showMessage() {
+        function revealSurprise() {
+            // Show secret message
             const msg = document.getElementById('secret-message');
             msg.style.display = (msg.style.display === 'block') ? 'none' : 'block';
+
+            // Trigger Spotify Autoplay
+            const player = document.getElementById('spotify-player');
+            player.src = "https://open.spotify.com/embed/track/4WgfuNwzjQPRmvqz7GGAmf?utm_source=generator&autoplay=1";
         }
     </script>
 </body>
