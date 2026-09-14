@@ -64,6 +64,7 @@
             border-radius: 25px;
             cursor: pointer;
             transition: transform 0.2s, background-color 0.2s;
+            margin: 5px;
         }
         .btn:hover {
             background-color: #d62828;
@@ -90,9 +91,9 @@
             margin-bottom: 20px;
         }
         .cat-gif {
-            width: 150px;
+            width: 160px;
             height: auto;
-            border-radius: 12px;
+            border-radius: 15px;
             margin: 0 auto 15px auto;
             display: block;
         }
@@ -110,6 +111,8 @@
             border-top: 1px dashed #ffb3c1;
             display: flex;
             justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         /* --- Camera Film Strip Effect --- */
@@ -134,7 +137,6 @@
             animation: scrollFilm 45s linear infinite;
         }
 
-        /* Toggle pause state on tap/click */
         .film-track.paused {
             animation-play-state: paused !important;
         }
@@ -161,14 +163,35 @@
             -webkit-user-drag: none;
         }
 
-        /* --- Special Highlighted Photo 30 --- */
-        .special-photo-card {
-            margin-top: 30px;
+        /* --- Custom Cat/Heart Styled Tiles --- */
+        .cat-card-style {
+            margin-top: 35px;
             background: #fff0f3;
             border: 2px solid #ffb3c1;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.15);
+            border-radius: 20px;
+            padding: 25px 20px 20px 20px;
+            box-shadow: 0 6px 18px rgba(230, 57, 70, 0.12);
+            position: relative;
+        }
+
+        /* Cat Ears Effect on Top of Cards */
+        .cat-card-style::before, .cat-card-style::after {
+            content: '';
+            position: absolute;
+            top: -14px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid #ffb3c1;
+        }
+        .cat-card-style::before {
+            left: 25px;
+            transform: rotate(-12deg);
+        }
+        .cat-card-style::after {
+            right: 25px;
+            transform: rotate(12deg);
         }
 
         .special-photo-card h3 {
@@ -185,39 +208,30 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* --- Daughter's Audio Tile --- */
-        .audio-tile {
-            margin-top: 30px;
-            background: linear-gradient(135deg, #ffccd5 0%, #ffb3c1 100%);
-            border: 2px solid #ff758f;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 6px 18px rgba(230, 57, 70, 0.2);
+        /* Interactive Tiles */
+        .interactive-tile {
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
             user-select: none;
         }
 
-        .audio-tile:hover {
+        .interactive-tile:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 22px rgba(230, 57, 70, 0.3);
+            box-shadow: 0 8px 22px rgba(230, 57, 70, 0.25);
+            background: #ffe3e8;
         }
 
-        .audio-tile:active {
+        .interactive-tile:active {
             transform: scale(0.98);
         }
 
-        .audio-tile h3 {
+        .interactive-tile h3 {
             color: #800f2f;
             font-size: 1.2rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            margin-bottom: 6px;
         }
 
-        .audio-tile p {
+        .interactive-tile p {
             color: #590d22;
             font-size: 0.95rem;
             margin-bottom: 0;
@@ -253,7 +267,6 @@
 </head>
 <body>
 
-    <!-- PAGE 1: Welcome Screen -->
     <div id="page1">
         <img src="us.jpg" alt="Photo of us" class="photo-frame" onerror="this.style.display='none'">
         <h1>Hi Chiquii! ❤️</h1>
@@ -261,52 +274,56 @@
         <button class="btn" onclick="goToPage2()">Click for a surprise!</button>
     </div>
 
-    <!-- PAGE 2: Birthday Message Letter -->
     <div id="page2">
-        <h2 class="letter-header">Happiest Birthday, Chiq! 🎂💖</h2>
+        <h2 class="letter-header">Happiest Birthday, Chiq!</h2>
         
-        <!-- Cat GIF -->
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZydHZpdXFvMWg1Mm1tbW5yYnh0dmpvaHM1MnVhdDJsOHJ3OGd4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CjmvTCZf2U3p09Cn0h/giphy.gif" alt="Cute Cat GIF" class="cat-gif">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3dldmQxaTY3cnRjYmRkMjJidTgwZDJrcnh1OHR5eXBmMnE2cjhhcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lq0h93752f6J9tijrh/giphy.gif" alt="In Love Cat GIF" class="cat-gif">
 
         <div class="letter-content">I have been thinking pano kita babatiin at 12am bukas (STARTED CODING AT SEPT 16, 11 PM) kase nasa work ako non so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami dami nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
 
-Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, healing, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are ❤️
+Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, healing, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are.
 
-Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
+Enjoy your day, and know that I’m still here silently loving you.</div>
 
         <div class="action-tile">
-            <button class="btn" onclick="goToPage3()">One more thing... ✨</button>
+            <button class="btn" onclick="goToPage3()">One more thing...</button>
         </div>
     </div>
 
-    <!-- PAGE 3: Camera Film Reel & Special Highlight -->
     <div id="page3">
-        <h2 class="letter-header">Our Moments in Reel 🎞️❤️</h2>
+        <h2 class="letter-header">Our Moments in Reel 🎞️</h2>
 
         <p style="text-align:center; font-size: 0.9rem; color:#777; margin-bottom: 10px;">(Tap/click the film strip anytime to pause or play)</p>
 
-        <!-- Infinite Scrolling Film Strip -->
         <div class="film-container" id="filmContainer">
             <div class="film-track" id="filmTrack"></div>
         </div>
 
-        <!-- Highlight Card for Film 30 -->
-        <div class="special-photo-card">
-            <h3>My Favorite Picture of All ✨❤️</h3>
+        <div class="cat-card-style special-photo-card">
+            <h3>My Favorite Picture of All 🐾❤️</h3>
             <img src="film30.jpg" alt="Our Special Photo" class="special-frame" onerror="this.style.display='none'">
             <p style="margin-top: 15px; color: #555; font-weight: 500;">
-                Here's to capturing a million more memories together! 📸✨
+                Here's to capturing a million more memories together!
             </p>
         </div>
 
-        <!-- Audio Greeting Tile from Daughter -->
-        <div class="audio-tile" onclick="playDaughterVoice()">
-            <h3>🔊 Listen to a Special Message! 💕</h3>
+        <div class="cat-card-style interactive-tile" onclick="playDaughterVoice()">
+            <h3>🐱 Listen to a Special Message! 💖</h3>
             <p>(Tap as many times as you want!)</p>
+        </div>
+
+        <div class="cat-card-style interactive-tile" onclick="showRandomWish()">
+            <h3>🐾 Tap for a Birthday Wish ✨</h3>
+            <p id="wishText">Click here to reveal a sweet message!</p>
+        </div>
+
+        <div class="cat-card-style" style="margin-top: 35px; background: #fff;">
+            <h3 style="color: #e63946; font-size: 1.1rem; margin-bottom: 15px;">Want to revisit previous pages? ❤️</h3>
+            <button class="btn" onclick="goToPage(1)">Back to Start (Page 1)</button>
+            <button class="btn" onclick="goToPage(2)">Read Letter Again (Page 2)</button>
         </div>
     </div>
 
-    <!-- Background Audio & Daughter Voice Audio -->
     <audio id="bgSong" src="Leaves.mp3" loop preload="auto"></audio>
     <audio id="daughterAudio" src="daughter_voice.mp3" preload="auto"></audio>
 
@@ -354,6 +371,47 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
             voice.play().catch(err => console.log("Audio play error:", err));
         }
 
+        const wishes = [
+            "You deserve all the peaceful and happy moments in the world! 🌸",
+            "May your year be filled with beautiful photos and great music! 🎧",
+            "Thank you for being such a bright ray of sunshine! ☀️",
+            "Always remember how loved and appreciated you truly are! 💕",
+            "Hope your day brings as much comfort as you give to others! 🐾"
+        ];
+
+        function showRandomWish() {
+            const wishText = document.getElementById('wishText');
+            const randomMsg = wishes[Math.floor(Math.random() * wishes.length)];
+            wishText.style.opacity = 0;
+            setTimeout(() => {
+                wishText.innerText = randomMsg;
+                wishText.style.opacity = 1;
+            }, 150);
+        }
+
+        function goToPage(pageNumber) {
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            const p3 = document.getElementById('page3');
+
+            p1.style.display = 'none';
+            p2.style.display = 'none';
+            p3.style.display = 'none';
+
+            p1.style.opacity = '1';
+            p2.style.opacity = '1';
+            p3.style.opacity = '1';
+
+            if (pageNumber === 1) {
+                p1.style.display = 'block';
+            } else if (pageNumber === 2) {
+                p2.style.display = 'block';
+            } else if (pageNumber === 3) {
+                p3.style.display = 'block';
+            }
+            window.scrollTo(0, 0);
+        }
+
         function goToPage2() {
             const song = document.getElementById('bgSong');
             song.play().catch(function(error) {
@@ -388,7 +446,7 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
         }
 
         function spawnSingleEmoji() {
-            const emojis = ['💖', '❤️', '💕', '🥰', '😘', '✨', '🎉', '🌹', '💌', '🎂'];
+            const emojis = ['💖', '❤️', '💕', '🥰', '✨', '🎂', '🐾'];
             const emojiElement = document.createElement('div');
             emojiElement.classList.add('floating-emoji');
             
