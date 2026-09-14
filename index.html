@@ -117,6 +117,7 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.25);
             border-top: 8px dashed #fff;
             border-bottom: 8px dashed #fff;
+            cursor: pointer;
         }
 
         .film-track {
@@ -124,6 +125,11 @@
             gap: 15px;
             width: max-content;
             animation: scrollFilm 45s linear infinite;
+        }
+
+        /* Toggle pause state on tap/click */
+        .film-track.paused {
+            animation-play-state: paused !important;
         }
 
         .film-frame {
@@ -144,6 +150,8 @@
             height: 100%;
             object-fit: cover;
             border-radius: 2px;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         /* --- Special Highlighted Photo 30 --- */
@@ -203,7 +211,7 @@
     <div id="page1">
         <img src="us.jpg" alt="Photo of us" class="photo-frame">
         <h1>Hi Chiquii! ❤️</h1>
-        <p>I built this little corner of the internet just for your birthday.</p>
+        <p>I built this little corner of the internet just for your birthday</p>
         <button class="btn" onclick="goToPage2()">Click for a surprise!</button>
     </div>
 
@@ -212,7 +220,7 @@
         <h2 class="letter-header">Happiest Birthday, Chiq! 🎂💖</h2>
         <div class="letter-content">I have been thinking pano kita babatiin at 12am kase nasa work ako now so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami na nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
 
-Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, healing, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are &lt;3
+Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are &lt;3
 
 Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
 
@@ -225,8 +233,10 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
     <div id="page3">
         <h2 class="letter-header">Our Moments in Reel 🎞️❤️</h2>
 
+        <p style="text-align:center; font-size: 0.9rem; color:#777; margin-bottom: 10px;">(Tap/click the film strip anytime to pause or play)</p>
+
         <!-- Infinite Scrolling Film Strip -->
-        <div class="film-container">
+        <div class="film-container" id="filmContainer">
             <div class="film-track" id="filmTrack"></div>
         </div>
 
@@ -235,7 +245,7 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
             <h3>My Favorite Picture of All ✨❤️</h3>
             <img src="film30.jpg" alt="Our Special Photo" class="special-frame">
             <p style="margin-top: 15px; color: #555; font-weight: 500;">
-                Here's to capturing a million more memories together! (Sana) 📸✨
+                Here's to capturing a million more memories together! 📸✨
             </p>
         </div>
     </div>
@@ -246,6 +256,7 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
     <script>
         // Build film reel array (us.jpg + film1 to film29, omitting 11 and 13)
         const filmTrack = document.getElementById('filmTrack');
+        const filmContainer = document.getElementById('filmContainer');
         const photoList = ['us.jpg'];
 
         for (let i = 1; i <= 29; i++) {
@@ -267,6 +278,11 @@ Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
             });
         }
         renderFilmTrack();
+
+        // Toggle pause/play when tapped or clicked
+        filmContainer.addEventListener('click', () => {
+            filmTrack.classList.toggle('paused');
+        });
 
         function goToPage2() {
             const song = document.getElementById('bgSong');
