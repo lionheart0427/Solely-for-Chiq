@@ -19,8 +19,12 @@
             align-items: center;
             padding: 20px;
             color: #333;
+            overflow-x: hidden;
+            position: relative;
         }
-        .card {
+
+        /* --- Page 1 Card --- */
+        #page1 {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             padding: 40px;
@@ -28,6 +32,9 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
         h1 {
             color: #e63946;
@@ -62,44 +69,141 @@
             background-color: #d62828;
             transform: scale(1.05);
         }
-        #secret-message {
+
+        /* --- Page 2 (Birthday Message Page) --- */
+        #page2 {
             display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #ffe5ec;
-            border-radius: 10px;
-            color: #c9184a;
-            font-weight: 500;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        .letter-header {
+            text-align: center;
+            color: #e63946;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .letter-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            white-space: pre-line; /* Preserves your exact line breaks */
+            margin-bottom: 30px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Floating Emoji Animation --- */
+        .floating-emoji {
+            position: fixed;
+            bottom: -50px;
+            font-size: 2rem;
+            user-select: none;
+            pointer-events: none;
+            z-index: 100;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(1.4);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
+    <!-- PAGE 1: Welcome Screen -->
+    <div id="page1">
         <img src="us.jpg" alt="Photo of us" class="photo-frame">
         
         <h1>Hi Chiquii! ❤️</h1>
         <p>I built this little corner of the internet just for you. Thank you for being so amazing every single day.</p>
         
-        <button class="btn" onclick="revealSurprise()">Click for a surprise!</button>
-        
-        <div id="secret-message">
-            💖 I love you more every day, Chiquii! 💖
-        </div>
+        <button class="btn" onclick="goToMessagePage()">Click for a surprise!</button>
     </div>
 
-    <!-- Hidden audio element for background song -->
-    <audio id="bgSong" src="Leaves.mp3" loop></audio>
+    <!-- PAGE 2: Birthday Message Letter -->
+    <div id="page2">
+        <h2 class="letter-header">Happiest Birthday, Chiq! 🎂💖</h2>
+        
+        <div class="letter-content">I have been thinking pano kita babatiin at 12am kase nasa work ako now so I thought I'll use my time and effort to try and make this hour a little special for you. God knows how glad I am every time I got to talk to you again. God knows how grateful I am sayo kahit ang dami na nating pinagdadaanan ngayon. I hope you know you bring so much joy to me, that you are such a ball of sunshine for me despite your own struggles. I hope today reminds you how appreciated you are, not just by me, but by the people lucky enough to know you. You deserve a day that feels calm, happy, and meaningful, just like the kind of presence you give to others.
+
+Happiest Birthday, Chiq! I hope this year brings you new places to capture, new underrated songs to love, and moments that make you feel appreciated. You deserve a day that’s as thoughtful as you are &lt;3
+
+Enjoy your day, and know that I’m still here silently loving you. 🥺</div>
+    </div>
+
+    <!-- Background Audio -->
+    <audio id="bgSong" src="Leaves.mp3" loop preload="auto"></audio>
 
     <script>
-        function revealSurprise() {
-            // Show secret message
-            const msg = document.getElementById('secret-message');
-            msg.style.display = (msg.style.display === 'block') ? 'none' : 'block';
-
-            // Play background music
+        function goToMessagePage() {
+            // 1. Play background song
             const song = document.getElementById('bgSong');
-            song.play();
+            song.play().catch(function(error) {
+                console.log("Audio play error:", error);
+            });
+
+            // 2. Trigger Floating Emoji Celebration
+            createEmojiBurst();
+
+            // 3. Smoothly transition to Page 2
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+
+            page1.style.opacity = '0';
+            setTimeout(() => {
+                page1.style.display = 'none';
+                page2.style.display = 'block';
+            }, 500);
+        }
+
+        function createEmojiBurst() {
+            const emojis = ['💖', '❤️', '💕', '🥰', '😘', '✨', '🎉', '🌹', '💌', '🎂'];
+            const totalEmojis = 40;
+
+            for (let i = 0; i < totalEmojis; i++) {
+                setTimeout(() => {
+                    const emojiElement = document.createElement('div');
+                    emojiElement.classList.add('floating-emoji');
+                    emojiElement.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    emojiElement.style.left = Math.random() * 100 + 'vw';
+                    
+                    const duration = Math.random() * 2 + 3;
+                    const size = Math.random() * 1.5 + 1.5;
+                    
+                    emojiElement.style.animationDuration = duration + 's';
+                    emojiElement.style.fontSize = size + 'rem';
+
+                    document.body.appendChild(emojiElement);
+
+                    setTimeout(() => {
+                        emojiElement.remove();
+                    }, duration * 1000);
+
+                }, i * 100);
+            }
         }
     </script>
 </body>
